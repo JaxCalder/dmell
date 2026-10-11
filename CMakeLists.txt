@@ -144,6 +144,7 @@ if(NOT DMELL_BUILD_TESTS)
     add_subdirectory(commands/ps)
     add_subdirectory(commands/mount)
     add_subdirectory(commands/umount)
+    add_subdirectory(commands/ymodem)
 endif()
 
 # ======================================================================
