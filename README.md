@@ -8,7 +8,7 @@ dmell is a shell interpreter designed for the DMOD (Dynamic Module) system. It p
 ## Features
 
 - **Built-in Commands**: Basic shell commands like `echo`, `write`, `read`, `help`, `cd`, `pwd`, `set`, `unset`, `export`, and `exit`
-- **External Command Modules**: Complex commands (`cp`, `mv`, `ls`, `cat`, `mkdir`, `touch`, `head`, `tail`, `grep`, `rm`, `rmdir`, `find`, `which`, `printf`, `mount`, `umount`) available as separate DMOD modules
+- **External Command Modules**: Complex commands (`cp`, `mv`, `ls`, `cat`, `mkdir`, `touch`, `head`, `tail`, `grep`, `rm`, `rmdir`, `find`, `which`, `printf`, `mount`, `umount`, `ymodem`) available as separate DMOD modules
 - **Script Execution**: Support for `.dme` script files
 - **Variable Management**: Environment variables and shell variables support
 - **Shebang Support**: Execute scripts with custom interpreters
@@ -85,6 +85,7 @@ dmf-get which
 dmf-get printf
 dmf-get mount
 dmf-get umount
+dmf-get ymodem
 ```
 
 | Module | Description | Documentation |
@@ -175,7 +176,8 @@ dmell/
 │   ├── which/           # Locate module module
 │   ├── printf/          # Format and print module
 │   ├── mount/           # Mount file system module
-│   └── umount/          # Unmount file system module
+│   ├── umount/          # Unmount file system module
+│   └── ymodem/          # Receive files over the console (YMODEM)
 ├── examples/            # Example scripts
 └── CMakeLists.txt       # Build configuration
 ```
