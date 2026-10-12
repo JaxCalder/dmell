@@ -44,6 +44,8 @@
 #define SKIP_MS     100u            /* The line quiet that long: what was sent is read (a packet is ~11 ms) */
 #define PACKET_MS   1000u           /* A packet's bytes stopped that long: some were lost */
 #define MAX_PATH    256u
+#define OPEN_MS     2000u           /* A file that does not open is tried again that long (one being read) */
+#define OPEN_TRY_MS 100u
 #define MAX_PACKET  1024u
 #define CHUNK       64u
 
@@ -318,8 +320,16 @@ static int receive(link_t* link, const char* dir, uint8_t* data, summary_t* sum)
         void* file = NULL;
         if (target_path(dir, name, path, sizeof(path)))
         {
+            /* A file another program reads just then (a view being shown)
+             * does not open for writing until it is closed: tried again for
+             * a while - the sender waits for the header's answer longer */
             make_parents(path);
             file = Dmod_FileOpen(path, "wb");
+            for (uint32_t waited = 0; file == NULL && waited < OPEN_MS; waited += OPEN_TRY_MS)
+            {
+                dmosi_thread_sleep(OPEN_TRY_MS);
+                file = Dmod_FileOpen(path, "wb");
+            }
         }
         if (file == NULL)
         {
